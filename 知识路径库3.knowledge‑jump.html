@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial‑scale=1.0">
+<title>脉向｜路径知识库</title>
+<style>
+*{margin:0;padding:0;box‑sizing:border‑box;font‑family:"PingFang SC",system‑ui,‑apple‑system,sans‑serif;}
+body{background‑color:#f8f5ef;color:#3a3a3a;line‑height:1.75;}
+.container{max‑width:1020px;margin:0 auto;padding:28px 20px;}
+header{text‑align:center;margin‑bottom:36px;}
+header h1{font‑size:2rem;color:#2c4b63;margin‑bottom:8px;}
+header p{color:#666666;}
+.page{display:none;}
+.page.active{display:block;}
+/*首页卡片网格*/
+.card‑grid{display:grid;grid‑template‑columns:repeat(auto‑fit,minmax(280px,1fr));gap:22px;margin‑bottom:42px;}
+.card{background:#ffffff;padding:24px;border‑radius:18px;box‑shadow:0 2px 10px rgba(0,0,0,0.06);border:1px solid #eee;cursor:pointer;transition:0.25s ease;}
+.card:hover{transform:translateY(-4px);box‑shadow:0 6px 18px rgba(0,0,0,0.1);}
+.card h3{font‑size:1.26rem;color:#2c4b63;margin‑bottom:10px;}
+.card .desc{font‑size:0.95rem;color:#606060;}
+/*返回按钮*/
+.back‑btn{display:inline‑block;padding:9px 18px;background:#e8e2d7;border‑radius:12px;cursor:pointer;margin‑bottom:22px;border:none;font‑size:0.95rem;color:#333;}
+/*详情容器*/
+.detail‑wrap{background:#ffffff;padding:32px;border‑radius:18px;box‑shadow:0 2px 12px rgba(0,0,0,0.07);}
+.mini‑flow{background:#f4efe4;padding:14px;border‑radius:12px;margin‑bottom:24px;font‑size:0.96rem;color:#444444;}
+.section{margin:24px 0;}
+.section h4{border‑left:4px solid #7498b8;padding‑left:12px;color:#2c4b63;font‑size:1.08rem;margin‑bottom:10px;}
+ul{padding‑left:26px;}
+.tip‑smu{background:#eef3f8;padding:14px;border‑radius:12px;margin‑top:18px;font‑size:0.93rem;color:#2b4961;}
+/*活动条目样式（竞赛、夏令营）*/
+.event‑item{padding:16px 0;border‑bottom:1px solid #f0ece4;}
+.event‑item:last‑child{border‑bottom:none;}
+.event‑item h5{font‑size:1.05rem;color:#2c4b63;margin‑bottom:8px;}
+.event‑item p{font‑size:0.92rem;color:#555;margin:5px 0;}
+.label{display:inline‑block;background:#e8e2d7;padding:2px 8px;border‑radius:6px;font‑size:0.82rem;margin‑right:6px;}
+</style>
+</head>
+<body>
+<div class="container">
+<!--首页 page‑home-->
+<div id="page‑home" class="page active">
+    <header>
+        <h1>路径知识库</h1>
+        <p>脉络：节点是选择，连线是路径｜点击卡片跳转查看详情</p>
+    </header>
+    <div class="card‑grid">
+        <div class="card" onclick="switchPage('baoyan')">
+            <h3>📜 保研（推免）</h3>
+            <div class="desc">校内推免资格、夏令营、专硕/学硕区分，南医推免政策参考</div>
+        </div>
+        <div class="card" onclick="switchPage('kaoyan')">
+            <h3>📝 考研</h3>
+            <div class="desc">全国统考、学硕专硕差异、备考周期、风险与收益</div>
+        </div>
+        <div class="card" onclick="switchPage('guipei')">
+            <h3>🏥 规培就业</h3>
+            <div class="desc">社会人规培、四证合一、本科直接就业上岗路径</div>
+        </div>
+        <div class="card" onclick="switchPage('keyan')">
+            <h3>🔬 专职科研</h3>
+            <div class="desc">大创、课题组、读博，科研院所与高校发展路线</div>
+        </div>
+        <div class="card" onclick="switchPage('abroad')">
+            <h3>✈️ 出国深造</h3>
+            <div class="desc">医学海外申请，语言、科研背景、申请周期</div>
+        </div>
+        <div class="card" onclick="switchPage('zhuanhang')">
+            <h3>🔄 转行</h3>
+            <div class="desc">离开临床主线：CRO、医学编辑、医疗法务、医药企业岗位</div>
+        </div>
+        <div class="card" onclick="switchPage('activity')">
+            <h3>🏆 竞赛 & 夏令营活动库</h3>
+            <div class="desc">高含金量学科竞赛、南方医游学营；含举办时间、报名方式、适合专业</div>
+        </div>
+    </div>
+</div>
+
+<!--保研详情页-->
+<div id="baoyan" class="page">
+    <button class="back‑btn" onclick="switchPage('page‑home')">← 返回知识库首页</button>
+    <div class="detail‑wrap">
+        <h2>📜 保研（推免）</h2>
+        <div class="mini‑flow">脉络链路前置：高绩点 → 英语达标 → 科研/竞赛经历 → 夏令营/预推免 → 获取校内推免资格 → 专硕 / 学硕分流</div>
+        <div class="section">
+            <h4>真实门槛【南方医科大学参考】</h4>
+            <ul>
+                <li>成绩占推免综合评价权重占90%，科研竞赛加分不超过10%，无单独推免笔试考试。</li>
+                <li>本科必修课全部合格，无纪律处分；各学院要求专业排名通常在前20%以内（不同学院浮动）。</li>
+                <li>英语硬性参考：多数学院要求CET‑6≥425分；托福≥85、雅思≥6.0可替代。</li>
+                <li>科研、竞赛属于复试加分项，<strong>不决定校内推免资格获取</strong>。</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>关键时间线</h4>
+            <ul>
+                <li>大一‑大三：维护绩点、通过四六级、进课题组、参加大创、学科竞赛</li>
+                <li>5‑7月：全国医学院校夏令营；南方医各学院游学营集中开放报名</li>
+                <li>8‑9月：本校开展推免资格评审，各高校预推免报名面试</li>
+                <li>9月末：国家推免服务系统正式开放填报志愿</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>优势</h4>
+            <ul>
+                <li>不需要参加12月全国考研统考；专硕可享受四证合一。</li>
+                <li>拥有更多导师选择权，可以冲刺外校重点医学院。</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>风险与弊端</h4>
+            <ul>
+                <li>对前三年的成绩依赖性极强，后期很难翻盘。</li>
+                <li>夏令营优秀营员不等于100%拿到推免，前提是拿到本校推免名额。</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>适合人群</h4>
+            <ul>
+                <li>本科前三年专业排名靠前；英语达标；有科研竞赛经历的同学。</li>
+            </ul>
+        </div>
+        <div class="tip‑smu">💡南医提示：夏令营游学营不等于保研，只是提前和导师沟通机会；一切以校内推免资格评审结果为准。可前往【竞赛&夏令营活动库】查看具体营队报名信息。</div>
+    </div>
+</div>
+
+<!--考研详情页-->
+<div id="kaoyan" class="page">
+    <button class="back‑btn" onclick="switchPage('page‑home')">← 返回知识库首页</button>
+    <div class="detail‑wrap">
+        <h2>📝 考研（全国硕士研究生统一招生考试）</h2>
+        <div class="mini‑flow">脉络链路前置：本科课内学习 → 确定学硕/专硕 → 备考复习 →12月初试 →次年2‑3月复试 →录取</div>
+        <div class="section">
+            <h4>真实门槛</h4>
+            <ul>
+                <li>本科顺利毕业，医学类专业对应报考相关医学硕士；五年制临床可报专硕；四年制理学学位不能报考临床专硕。</li>
+                <li>无硬性绩点、四六级要求，但复试阶段导师会参考成绩单与英语成绩。</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>关键时间线</h4>
+            <ul>
+                <li>大三下‑大四：确定目标院校，启动备考</li>
+                <li>9‑10月：网上考研报名</li>
+                <li>12月下旬：全国硕士初试</li>
+                <li>次年2‑3月：查分、国家线、院校复试线；复试调剂</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>优势</h4>
+            <ul>
+                <li>不被前三年绩点锁死，后期努力有翻盘机会；院校选择面广。</li>
+                <li>专硕完成培养可拿到四证合一。</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>风险与弊端</h4>
+            <ul>
+                <li>医学考研内卷激烈，分数竞争大；存在落榜、调剂风险。</li>
+                <li>大四、大五实习和备考时间冲突，时间压力巨大。</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>适合人群</h4>
+            <ul>
+                <li>没有推免资格，愿意投入长时间备考；抗压能力较强的医学生。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--规培就业-->
+<div id="guipei" class="page">
+    <button class="back‑btn" onclick="switchPage('page‑home')">← 返回知识库首页</button>
+    <div class="detail‑wrap">
+        <h2>🏥 规培就业（社会人规培）</h2>
+        <div class="mini‑flow">脉络链路前置：本科毕业 →报考社会住院医师规范化培训 →轮转3年 →拿到规培证，后续可继续考学</div>
+        <div class="section">
+            <h4>真实门槛</h4>
+            <ul>
+                <li>临床医学、口腔、中医等五年制医学学位可以参加临床类规培；理学学位不能报考临床医师规培。</li>
+                <li>通过执业医师资格考试是拿到规培证书的必要条件。</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>关键时间线</h4>
+            <ul>
+                <li>本科毕业当年：报考各医院社会人规培招录</li>
+                <li>规培3年期间：备考执业医师；可同步准备考研</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>优势</h4>
+            <ul>
+                <li>不用读研，直接进入临床岗位，获得临床实操经验；有规培补助。</li>
+                <li>规培期间可以边工作边备考研究生。</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>风险与弊端</h4>
+            <ul>
+                <li>社会人规培≠硕士学历，只有规培证；后续进三甲医院会受学历限制。</li>
+                <li>工作强度大，同时备考考研精力压力很大。</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>适合人群</h4>
+            <ul>
+                <li>希望尽快上岗；考研多次失利，计划先入行再提升学历的同学。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--专职科研-->
+<div id="keyan" class="page">
+    <button class="back‑btn" onclick="switchPage('page‑home')">← 返回知识库首页</button>
+    <div class="detail‑wrap">
+        <h2>🔬 专职科研路线</h2>
+        <div class="mini‑flow">脉络链路前置：进课题组 /大创项目 →学硕硕士 →攻读博士 →博士后 /高校教师 /科研院所</div>
+        <div class="section">
+            <h4>真实门槛</h4>
+            <ul>
+                <li>看重科研经历：大创、课题参与、论文产出；临床学硕、基础医学、生物医学相关专业为主。</li>
+                <li>想要高校、研究所岗位，通常最低需要博士学历。</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>关键时间线</h4>
+            <ul>
+                <li>本科阶段：加入课题组，做大创，尝试参与论文发表</li>
+                <li>硕士3年；博士3‑4年；可选博士后2‑4年</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>优势</h4>
+            <ul>
+                <li>面向医学基础研究，走向高校教师、科研院所、药企研发岗位。</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>风险与弊端</h4>
+            <ul>
+                <li>培养周期很长；科研存在不确定性，论文产出不可控。</li>
+                <li>学硕不参加四证合一，如果未来想转回临床医师需要额外规培。</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>适合人群</h4>
+            <ul>
+                <li>热爱科研实验，愿意接受长周期学习，不执着于做临床医生。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--出国深造-->
+<div id="abroad" class="page">
+    <button class="back‑btn" onclick="switchPage('page‑home')">← 返回知识库首页</button>
+    <div class="detail‑wrap">
+        <h2>✈️ 医学出国深造</h2>
+        <div class="mini‑flow">脉络链路前置：本科科研成果 →语言考试（托福/雅思）→文书申请 →海外硕博项目</div>
+        <div class="section">
+            <h4>真实门槛</h4>
+            <ul>
+                <li>语言成绩：托福 /雅思；部分地区需要GRE。</li>
+                <li>重点看重科研经历、论文、竞赛（如iGEM）；国内医学本科很难直接申请海外临床执业MD。</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>关键时间线</h4>
+            <ul>
+                <li>大二‑大三：语言考试，积累科研成果</li>
+                <li>大三‑大四：准备文书，投递海外硕博项目</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>优势</h4>
+            <ul>
+                <li>接触国际科研平台，适合基础科研方向，丰富学术背景。</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>风险与弊端</h4>
+            <ul>
+                <li>很难直接就读海外临床行医项目，多数只能申请基础医学科研方向。</li>
+                <li>时间、经济成本高；回国之后依旧要遵守国内医师执业制度。</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>适合人群</h4>
+            <ul>
+                <li>目标做海外科研；语言能力强，有科研论文成果；家庭可以承担留学成本。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--转行-->
+<div id="zhuanhang" class="page">
+    <button class="back‑btn" onclick="switchPage('page‑home')">← 返回知识库首页</button>
+    <div class="detail‑wrap">
+        <h2>🔄 转行（离开临床医师主线）</h2>
+        <div class="mini‑flow">脉络链路前置：医学本科背景 →转向医疗相关非临床赛道；部分需要补充证书/跨考</div>
+        <div class="section">
+            <h4>常见发展方向</h4>
+            <ul>
+                <li>CRO行业：临床监察员CRC/CRA，药企临床试验相关岗位</li>
+                <li>医学编辑、医学科普、医学新媒体、医学教辅出版</li>
+                <li>医疗法务、卫生法学、医疗政策、医保相关岗位</li>
+                <li>医疗器械、医药企业的医学事务部</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>真实门槛</h4>
+            <ul>
+                <li>核心门槛：医学本科背景；部分岗位优先硕士；部分岗位需要自学行业证书。</li>
+                <li>部分岗位可以选择跨专业考研提升竞争力。</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>优势</h4>
+            <ul>
+                <li>避开临床夜班、高强度病房工作；赛道多元化。</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>风险与弊端</h4>
+            <ul>
+                <li>部分岗位薪资上限浮动大；需要重新学习行业新知识。</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>适合人群</h4>
+            <ul>
+                <li>不希望从事临床医师工作，希望利用医学专业背景从事交叉行业。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--【新增独立页面】竞赛 & 夏令营活动库-->
+<div id="activity" class="page">
+    <button class="back‑btn" onclick="switchPage('page‑home')">← 返回知识库首页</button>
+    <div class="detail‑wrap">
+        <h2>🏆 竞赛 & 夏令营活动库</h2>
+        <p class="tip">包含高含金量医学竞赛、南方医“游学南医”系列营队；信息为历年参考，每年时间以当年官方通知为准。</p>
+
+        <div class="section">
+            <h4>学科竞赛</h4>
+            <div class="event‑item">
+                <h5>中国大学生医学技术技能大赛</h5>
+                <p><span class="label">举办时间</span>两年一届，校赛9‑11月，全国决赛次年4‑6月</p>
+                <p><span class="label">报名方式</span>学校教务处/医学院统一组队报名，不接受个人报名</p>
+                <p><span class="label">适合专业</span>临床医学、口腔医学、中医学、护理</p>
+                <p><span class="label">竞赛价值</span>医学官方顶级技能赛事，保研复试认可度极高，看重临床实操能力。</p>
+            </div>
+            <div class="event‑item">
+                <h5>全国大学生医学创新大赛（原基础医学创新论坛）</h5>
+                <p><span class="label">举办时间</span>校赛3‑4月，全国复赛5‑7月</p>
+                <p><span class="label">报名方式</span>大赛官网www.jcyxds.com，团队报名，需联系指导老师</p>
+                <p><span class="label">适合专业</span>临床、基础医学、药学、检验</p>
+                <p><span class="label">竞赛价值</span>A类学科竞赛，实验创新课题，可对接大创项目，保研加分参考。</p>
+            </div>
+            <div class="event‑item">
+                <h5>挑战杯（大挑/小挑）</h5>
+                <p><span class="label">举办时间</span>奇数年大挑（科技作品），偶数年小挑（创业）；校赛12‑3月，省赛4‑6月</p>
+                <p><span class="label">报名方式</span>学校团委，团队组队提交作品</p>
+                <p><span class="label">适合专业</span>全部医学类专业</p>
+                <p><span class="label">竞赛价值</span>南医推免综合评价参考材料；科研课题、医疗创业项目均可参赛。</p>
+            </div>
+            <div class="event‑item">
+                <h5>全国大学生生命科学竞赛</h5>
+                <p><span class="label">举办时间</span>每年3‑8月，网上提交作品</p>
+                <p><span class="label">报名方式</span>竞赛官网，团队报名，需要指导教师</p>
+                <p><span class="label">适合专业</span>药学、检验、预防医学、生物技术</p>
+                <p><span class="label">竞赛价值</span>偏向基础科研，适合把大创项目转化参赛。</p>
+            </div>
+            <div class="event‑item">
+                <h5>iGEM国际基因工程机器大赛</h5>
+                <p><span class="label">举办时间</span>每年5‑11月，决赛11月初</p>
+                <p><span class="label">报名方式</span>学校iGEM团队，组队注册缴纳报名费</p>
+                <p><span class="label">适合专业</span>生物医学、生物信息、药学</p>
+                <p><span class="label">竞赛价值</span>国际交叉学科竞赛，海外硕博申请非常看重。</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h4>南方医科大学 · 游学营 / 夏令营（历年参考）</h4>
+            <div class="event‑item">
+                <h5>“游学南医”各学院科研体验行（康复/护理/中医药等）</h5>
+                <p><span class="label">举办时间</span>每年6‑7月集中报名，7月中下旬开营</p>
+                <p><span class="label">报名方式</span>南医游学营系统 yjszs.smu.edu.cn/MasterX/Signin.aspx，提交PDF材料邮件补充</p>
+                <p><span class="label">适合专业</span>全国相关医学本科大三学生，意向推免</p>
+                <p><span class="label">营队价值</span>接触南医导师、了解课题组，拿到参营证书；≠保研资格。</p>
+            </div>
+            <div class="event‑item">
+                <h5>基础医学拔尖人才国际暑期学校</h5>
+                <p><span class="label">举办时间</span>报名截止6月底，7月下旬举办</p>
+                <p><span class="label">报名方式</span>问卷星填报+邮件提交成绩单、英语证明等材料</p>
+                <p><span class="label">适合专业</span>基础医学、生物学、生物信息学本科生</p>
+                <p><span class="label">营队价值</span>前沿学术讲座，科研交流，适合计划走基础科研路线同学。</p>
+            </div>
+            <div class="tip‑smu">💡重要提醒：所有夏令营仅作为学术交流活动，<strong>不直接发放推免资格</strong>；想要保研必须拿到本校的推免名额。务必每年5月起定期浏览学院官网获取最新通知。</div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+//页面跳转切换函数
+function switchPage(pageId){
+    document.querySelectorAll(".page").forEach(p=>{
+        p.classList.remove("active");
+    })
+    document.getElementById(pageId).classList.add("active");
+    window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>

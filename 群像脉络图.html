@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>脉向｜群体模拟分流大数据</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"PingFang SC",system-ui,-apple-system,sans-serif;}
+body{background-color:#f8f5ef;color:#3a3a3a;line-height:1.75;}
+.container{max-width:1100px;margin:0 auto;padding:28px 20px;}
+.back-btn{display:inline-block;padding:9px 18px;background:#e8e2d7;border-radius:12px;border:none;font-size:0.95rem;color:#333;cursor:pointer;margin-bottom:20px;}
+header{text-align:center;margin-bottom:24px;}
+header h1{font-size:2rem;color:#2c4b63;margin-bottom:8px;}
+header .tip{color:#777;font-size:0.9rem;}
+.select-wrap{display:flex;justify-content:center;gap:12px;align-items:center;margin-bottom:20px;}
+select{padding:8px 12px;border-radius:10px;border:1px solid #d8d2c6;background:#fff;font-size:1rem;}
+.main-wrap{display:grid;grid-template-columns: 70% 28%;gap:2%;}
+#sankey-main{width:100%;height:480px;background:#fff;border-radius:16px;box-shadow:0 2px 10px rgba(0,0,0,0.06);padding:12px;}
+.stat-card{background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,0.06);}
+.stat-card h3{color:#2c4b63;margin-bottom:16px;}
+.stat-item{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f0ece4;}
+.interpret{margin-top:24px;background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,0.06);}
+.interpret h3{color:#2c4b63;margin-bottom:10px;}
+.interpret p{color:#555;}
+@media(max-width:768px){
+  .main-wrap{grid-template-columns:100%;}
+  #sankey-main{height:360px;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <button class="back-btn" onclick="location.href='index.html'">← 返回首页</button>
+  <header>
+    <h1>群体模拟分流大数据</h1>
+    <p class="tip">收集大量医学生在模拟器里的成长选择，汇总形成群体发展脉络<br>
+    <span style="color:#999;">模拟器模拟演示数据，仅供参考，非南方医科大学官方调研</span></p>
+  </header>
+  <div class="select-wrap">
+    <label>选择专业：</label>
+    <select id="proSelect">
+      <option value="clinical">临床医学（五年制）</option>
+      <option value="anesthesiology">麻醉学</option>
+      <option value="imaging">医学影像学</option>
+      <option value="pediatrics">儿科学</option>
+      <option value="preventive">预防医学</option>
+      <option value="forensic">法医学</option>
+    </select>
+  </div>
+  <div class="main-wrap">
+    <div id="sankey-main"></div>
+    <div class="stat-card">
+      <h3>分流占比</h3>
+      <div id="statPanel"></div>
+    </div>
+  </div>
+  <div class="interpret">
+    <h3>脉络解读</h3>
+    <p id="interpretText"></p>
+  </div>
+</div>
+
+<script>
+// 南方医科大学专业数据集
+const dataset = {
+  clinical: {
+    name:"临床医学（五年制）",
+    rate:{"保研":14,"考研":52,"规培就业":20,"专职科研":6,"出国":4,"转行":4},
+    text:"南医临床五年制深造氛围浓厚，大部分同学选择考研，目标南方医院、珠江医院及广东各地三甲；保研竞争激烈，很多同学依托顺德校区科研平台、大创项目积累科研经历。求学路上的突发事件，会改变原本规划的深造脉络。",
+    data: [
+      {"source":"大一","target":"夯实基础","value":100},
+      {"source":"夯实基础","target":"科研竞赛","value":32},
+      {"source":"夯实基础","target":"专注课业","value":53},
+      {"source":"夯实基础","target":"社团志愿","value":15},
+      {"source":"科研竞赛","target":"保研","value":14},
+      {"source":"科研竞赛","target":"专职科研","value":6},
+      {"source":"专注课业","target":"考研","value":52},
+      {"source":"社团志愿","target":"规培就业","value":20},
+      {"source":"科研竞赛","target":"出国","value":2},
+      {"source":"专注课业","target":"出国","value":2},
+      {"source":"社团志愿","target":"转行","value":4}
+    ]
+  },
+  anesthesiology: {
+    name:"麻醉学",
+    rate:{"保研":12,"考研":48,"规培就业":28,"专职科研":4,"出国":3,"转行":5},
+    text:"南医麻醉为精英小班培养，广东麻醉岗位需求稳定，不少同学本科结束直接规培就业；考研多瞄准麻醉、重症、疼痛方向，ICU、急诊轮转压力大，是常见的分流诱因。",
+    data: [
+      {"source":"大一","target":"夯实基础","value":100},
+      {"source":"夯实基础","target":"科研竞赛","value":26},
+      {"source":"夯实基础","target":"专注课业","value":58},
+      {"source":"夯实基础","target":"社团志愿","value":16},
+      {"source":"科研竞赛","target":"保研","value":12},
+      {"source":"科研竞赛","target":"专职科研","value":4},
+      {"source":"专注课业","target":"考研","value":48},
+      {"source":"社团志愿","target":"规培就业","value":28},
+      {"source":"科研竞赛","target":"出国","value":2},
+      {"source":"专注课业","target":"出国","value":1},
+      {"source":"社团志愿","target":"转行","value":5}
+    ]
+  },
+  imaging: {
+    name:"医学影像学",
+    rate:{"保研":13,"考研":46,"规培就业":29,"专职科研":4,"出国":3,"转行":5},
+    text:"南医影像含智能影像创新班，广东三甲影像岗位缺口稳定，就业友好；一部分同学实习后考虑辐射、夜班压力，调整发展路线，是脉络分叉的典型场景。",
+    data: [
+      {"source":"大一","target":"夯实基础","value":100},
+      {"source":"夯实基础","target":"科研竞赛","value":27},
+      {"source":"夯实基础","target":"专注课业","value":57},
+      {"source":"夯实基础","target":"社团志愿","value":16},
+      {"source":"科研竞赛","target":"保研","value":13},
+      {"source":"科研竞赛","target":"专职科研","value":4},
+      {"source":"专注课业","target":"考研","value":46},
+      {"source":"社团志愿","target":"规培就业","value":29},
+      {"source":"科研竞赛","target":"出国","value":2},
+      {"source":"专注课业","target":"出国","value":1},
+      {"source":"社团志愿","target":"转行","value":5}
+    ]
+  },
+  pediatrics: {
+    name:"儿科学",
+    rate:{"保研":11,"考研":49,"规培就业":27,"专职科研":3,"出国":2,"转行":8},
+    text:"儿科岗位需求量大，但工作强度高，南医儿科毕业生很多进入广州、深圳妇幼及儿童专科医院；也是转行比例偏高的专业，很多分流来自实习后的职业感受变化。",
+    data: [
+      {"source":"大一","target":"夯实基础","value":100},
+      {"source":"夯实基础","target":"科研竞赛","value":24},
+      {"source":"夯实基础","target":"专注课业","value":59},
+      {"source":"夯实基础","target":"社团志愿","value":17},
+      {"source":"科研竞赛","target":"保研","value":11},
+      {"source":"科研竞赛","target":"专职科研","value":3},
+      {"source":"专注课业","target":"考研","value":49},
+      {"source":"社团志愿","target":"规培就业","value":27},
+      {"source":"科研竞赛","target":"出国","value":1},
+      {"source":"专注课业","target":"出国","value":1},
+      {"source":"社团志愿","target":"转行","value":8}
+    ]
+  },
+  preventive: {
+    name:"预防医学",
+    rate:{"保研":18,"考研":36,"规培就业":28,"专职科研":7,"出国":8,"转行":3},
+    text:"南医预防医学学科实力强，去向多为疾控、卫健局、卫监所；公卫方向出国读流行病、卫生统计很热门，保研名额相对临床更友好，科研赛道选择丰富。",
+    data: [
+      {"source":"大一","target":"夯实基础","value":100},
+      {"source":"夯实基础","target":"科研竞赛","value":36},
+      {"source":"夯实基础","target":"专注课业","value":44},
+      {"source":"夯实基础","target":"社团志愿","value":20},
+      {"source":"科研竞赛","target":"保研","value":18},
+      {"source":"科研竞赛","target":"专职科研","value":7},
+      {"source":"专注课业","target":"考研","value":36},
+      {"source":"社团志愿","target":"规培就业","value":28},
+      {"source":"科研竞赛","target":"出国","value":5},
+      {"source":"专注课业","target":"出国","value":3},
+      {"source":"社团志愿","target":"转行","value":3}
+    ]
+  },
+  forensic: {
+    name:"法医学",
+    rate:{"保研":16,"考研":34,"规培就业":30,"专职科研":9,"出国":6,"转行":5},
+    text:"南医法医是国家级一流专业，去向包含公安、司法鉴定中心、科研院所；就业赛道独特，很多同学依托法医学院平台走科研、司法鉴定路线，路径和临床类差异明显。",
+    data: [
+      {"source":"大一","target":"夯实基础","value":100},
+      {"source":"夯实基础","target":"科研竞赛","value":38},
+      {"source":"夯实基础","target":"专注课业","value":42},
+      {"source":"夯实基础","target":"社团志愿","value":20},
+      {"source":"科研竞赛","target":"保研","value":16},
+      {"source":"科研竞赛","target":"专职科研","value":9},
+      {"source":"专注课业","target":"考研","value":34},
+      {"source":"社团志愿","target":"规培就业","value":30},
+      {"source":"科研竞赛","target":"出国","value":4},
+      {"source":"专注课业","target":"出国","value":2},
+      {"source":"社团志愿","target":"转行","value":5}
+    ]
+  }
+};
+
+const sankeyChart = echarts.init(document.getElementById('sankey-main'));
+const nodes = [
+  {name:"大一"},{name:"夯实基础"},{name:"科研竞赛"},{name:"专注课业"},{name:"社团志愿"},
+  {name:"保研"},{name:"考研"},{name:"规培就业"},{name:"专职科研"},{name:"出国"},{name:"转行"}
+];
+
+function render(proKey){
+  const d = dataset[proKey];
+  const opt = {
+    tooltip:{trigger:'item'},
+    series:[{
+      type:'sankey',
+      left:20,right:20,top:20,bottom:20,
+      data:nodes,
+      links:d.data,
+      lineStyle:{color:'source',curveness:0.5},
+      label:{color:'#2c4b63',fontSize:11}
+    }]
+  };
+  sankeyChart.setOption(opt);
+  // 渲染统计面板
+  let html = '';
+  Object.entries(d.rate).forEach(([k,v])=>{
+    html += `<div class="stat-item"><span>${k}</span><span>${v}%</span></div>`;
+  })
+  document.getElementById('statPanel').innerHTML = html;
+  document.getElementById('interpretText').innerText = d.text;
+}
+
+// 读取url参数
+let initPro = 'clinical';
+const urlp = new URLSearchParams(location.search);
+if(urlp.has('pro')) initPro = urlp.get('pro');
+document.getElementById('proSelect').value = initPro;
+render(initPro);
+
+document.getElementById('proSelect').onchange = function(){
+  render(this.value);
+}
+window.addEventListener('resize',()=>sankeyChart.resize());
+</script>
+</body>
+</html>

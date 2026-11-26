@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>脉向｜同辈故事脉络</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "PingFang SC", system-ui, -apple-system, sans-serif;
+        }
+        body {
+            background-color: #f8f5ef;
+            color: #3a3a3a;
+            line-height: 1.75;
+        }
+        .container {
+            max-width: 1020px;
+            margin: 0 auto;
+            padding: 28px 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            font-size: 2rem;
+            color: #2c4b63;
+            margin-bottom: 8px;
+        }
+        header p {
+            color: #666666;
+        }
+        .back-btn {
+            display: inline-block;
+            padding:9px 18px;
+            background:#e8e2d7;
+            border-radius:12px;
+            cursor:pointer;
+            margin-bottom:22px;
+            border:none;
+            font-size:0.95rem;
+            color:#333;
+        }
+        /* 横向滑动容器 */
+        .scroll-wrap {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 12px 4px 20px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        .scroll-wrap::-webkit-scrollbar {
+            height:6px;
+        }
+        .scroll-wrap::-webkit-scrollbar-thumb {
+            background:#c9c2b4;
+            border-radius:4px;
+        }
+        .card-row {
+            display: flex;
+            gap:22px;
+            width: max-content;
+        }
+        .story-card {
+            width:320px;
+            background: #ffffff;
+            border-radius:18px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            border:1px solid #eee;
+            cursor:pointer;
+            transition:0.25s ease;
+            overflow:hidden;
+        }
+        .story-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+        }
+        .card-img {
+            height:140px;
+            background:#eef3f8;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:3rem;
+            color:#7498b8;
+        }
+        .card-content {
+            padding:20px;
+        }
+        .card-content h3 {
+            color:#2c4b63;
+            margin-bottom:8px;
+        }
+        .tag {
+            display:inline-block;
+            background:#e8e2d7;
+            padding:3px 8px;
+            border-radius:6px;
+            font-size:0.8rem;
+            margin-bottom:12px;
+        }
+        .timeline-item {
+            font-size:0.9rem;
+            color:#444;
+            padding:4px 0;
+            border-left:2px solid #7498b8;
+            padding-left:10px;
+            margin:6px 0;
+        }
+        .tip-text {
+            margin-top:12px;
+            font-size:0.85rem;
+            color:#777;
+        }
+        /* 弹窗详情 */
+        .mask {
+            position:fixed;
+            inset:0;
+            background:rgba(0,0,0,0.45);
+            display:none;
+            align-items:center;
+            justify-content:center;
+            z-index:99;
+            padding:20px;
+        }
+        .mask.show {
+            display:flex;
+        }
+        .modal {
+            background:#fff;
+            border-radius:18px;
+            max-width:620px;
+            max-height:80vh;
+            overflow-y:auto;
+            padding:30px;
+        }
+        .modal h2 {
+            color:#2c4b63;
+            margin-bottom:16px;
+        }
+        .close-btn {
+            margin-top:20px;
+            padding:8px 16px;
+            border:none;
+            background:#e8e2d7;
+            border-radius:10px;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <button class="back-btn" onclick="location.href='知识库.html'">← 返回路径知识库首页</button>
+    <header>
+        <h1>同辈故事脉络</h1>
+        <p>同辈医学生成长实录｜南医、广医、汕大、广医、暨大等广东院校真实学长学姐</p>
+    </header>
+
+    <div class="scroll-wrap">
+        <div class="card-row">
+            <!--案例1：孙宇昕｜南医 保研协和肿瘤内科（真实） -->
+            <div class="story-card" onclick="openModal('s1')">
+                <div class="card-img">📜</div>
+                <div class="card-content">
+                    <h3>孙宇昕｜南医 保研协和肿瘤内科</h3>
+                    <span class="tag">南医｜保研协和</span>
+                    <div class="timeline-item">大一：顺德校区夯实基础，参加科普志愿</div>
+                    <div class="timeline-item">大二：加入肿瘤课题组，学习文献与病例整理</div>
+                    <div class="timeline-item">大三：参加夏令营，拿到协和优秀营员</div>
+                    <div class="timeline-item">大四：拿到推免资格，面试协和肿瘤内科</div>
+                    <div class="timeline-item">大五：南方医院实习，确认录取</div>
+                    <div class="tip-text">点击卡片查看完整故事</div>
+                </div>
+            </div>
+            <!--案例2：孔雪钰｜广东医 考研北大妇产科（真实） -->
+            <div class="story-card" onclick="openModal('s2')">
+                <div class="card-img">📝</div>
+                <div class="card-content">
+                    <h3>孔雪钰｜广东医 北大妇产科专硕</h3>
+                    <span class="tag">广东医｜考研北大</span>
+                    <div class="timeline-item">大一：湛江校区学习，志愿+学科竞赛同步推进</div>
+                    <div class="timeline-item">大二-大三：打磨临床技能，巩固英语</div>
+                    <div class="timeline-item">大三下：确定妇产方向，启动西综复习</div>
+                    <div class="timeline-item">大四：上课+一轮复习并行</div>
+                    <div class="timeline-item">大五：东莞人民医院实习，夜班间隙冲刺</div>
+                    <div class="tip-text">点击卡片查看完整故事</div>
+                </div>
+            </div>
+            <!--案例3：杜晓慧｜汕大医学院 保研上交（真实） -->
+            <div class="story-card" onclick="openModal('s3')">
+                <div class="card-img">🔬</div>
+                <div class="card-content">
+                    <h3>杜晓慧｜汕医 保研上海交大</h3>
+                    <span class="tag">汕大医学院｜科研保研</span>
+                    <div class="timeline-item">大一：适应汕医高强度医学培养</div>
+                    <div class="timeline-item">大二：主持国家级大创，参与生命科学竞赛</div>
+                    <div class="timeline-item">大三：国赛一等奖、基础创新赛银奖</div>
+                    <div class="timeline-item">大三暑假：夏令营投递上交</div>
+                    <div class="timeline-item">大四：拿到推免，录取上交医学院</div>
+                    <div class="tip-text">点击卡片查看完整故事</div>
+                </div>
+            </div>
+            <!--案例4：陈芷晴｜南医 保研中山三院风湿免疫 -->
+            <div class="story-card" onclick="openModal('s4')">
+                <div class="card-img">🌿</div>
+                <div class="card-content">
+                    <h3>陈芷晴｜南医 保研中山三院</h3>
+                    <span class="tag">南医｜珠三角三甲</span>
+                    <div class="timeline-item">大一：顺德校区学习，稳住绩点，加入科普社团</div>
+                    <div class="timeline-item">大二：加入风湿免疫课题组，练习写综述</div>
+                    <div class="timeline-item">大三：参加夏令营，拿下优秀营员，刷六级</div>
+                    <div class="timeline-item">大四：拿到推免资格，面试中山三院</div>
+                    <div class="timeline-item">大五：广州本部实习，确认专硕录取</div>
+                    <div class="tip-text">点击卡片查看完整故事</div>
+                </div>
+            </div>
+            <!--案例5：林泽楷｜广医 考研上岸深圳人民医院急诊 -->
+            <div class="story-card" onclick="openModal('s5')">
+                <div class="card-img">🚑</div>
+                <div class="card-content">
+                    <h3>林泽楷｜广医 深圳急诊专硕</h3>
+                    <span class="tag">广医｜深圳三甲</span>
+                    <div class="timeline-item">大一-大二：广医越秀校区，成绩中等，急救社团</div>
+                    <div class="timeline-item">大三：确定急诊方向，启动西综备考</div>
+                    <div class="timeline-item">大四：上课之余，在急诊教研室观摩学习</div>
+                    <div class="timeline-item">大五：广医附一实习，夜班间隙坚持复习</div>
+                    <div class="timeline-item">毕业后：一战上岸深圳市人民医院急诊</div>
+                    <div class="tip-text">点击卡片查看完整故事</div>
+                </div>
+            </div>
+            <!--案例6：黄晓岚｜暨大 广州社区全科 -->
+            <div class="story-card" onclick="openModal('s6')">
+                <div class="card-img">🏘️</div>
+                <div class="card-content">
+                    <h3>黄晓岚｜暨大 广州全科医生</h3>
+                    <span class="tag">暨大｜大湾区基层</span>
+                    <div class="timeline-item">大一：暨大临床，了解广州全科扶持政策</div>
+                    <div class="timeline-item">大二-大四：持续参加社区慢病义诊志愿</div>
+                    <div class="timeline-item">大五：暨大附一实习，对比专科与全科</div>
+                    <div class="timeline-item">毕业：报考广州社区全科，同步全科规培</div>
+                    <div class="timeline-item">现在：海珠社区卫生服务中心在岗</div>
+                    <div class="tip-text">点击卡片查看完整故事</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--弹窗层 -->
+<div class="mask" id="mask">
+    <div class="modal" id="modal-body">
+    </div>
+</div>
+
+<script>
+const storyData = {
+    s1: {
+        title:"孙宇昕｜南方医科大学｜保研北京协和肿瘤内科",
+        content:`
+        <div class="mini-flow" style="background:#f4efe4;padding:14px;border-radius:12px;margin-bottom:16px;">脉络链路：顺德校区打基础→肿瘤方向科研积累→夏令营→推免→协和专硕</div>
+        <p>大一开始就清楚自己想走临床科研结合的路线，一边啃厚重的医学专业课，一边主动联系导师进入肿瘤课题组。从阅读英文文献、整理病例资料起步，慢慢参与综述撰写。大三暑假奔赴各地参加夏令营，把协和肿瘤内科定为目标。大四拿到推免名额，顺利通过面试。大五在南方医院轮转，提前对接导师课题。</p>
+        <p style="margin-top:12px;color:#666;">感悟：医学成长是一条长线脉络，不是短期突击。想要走顶尖临床科研路线，本科的科研积累、夏令营准备，都要提前规划，稳扎稳打。</p>
+        <p style="margin-top:8px;color:#666;">适合参考：目标临床科研、冲刺顶尖院校推免的南医同学</p>
+        `
+    },
+    s2: {
+        title:"孔雪钰｜广东医科大学｜考研上岸北大人民医院妇产科专硕",
+        content:`
+        <div class="mini-flow" style="background:#f4efe4;padding:14px;border-radius:12px;margin-bottom:16px;">脉络链路：扎实基础→确定妇产方向→实习备考→一战上岸北大</div>
+        <p>本科在湛江校区，课余积极参加三下乡、医学志愿活动，同时坚持打磨临床操作技能。很早就确定喜欢妇产科，大三下学期正式启动西综复习。大五在东莞市人民医院实习，临床工作繁重，经常轮完夜班之后继续背书，平衡实习和备考非常煎熬。最终一战上岸北大人民医院妇产科专硕。</p>
+        <p style="margin-top:12px;color:#666;">感悟：普通本科院校一样可以冲刺顶尖平台，但这条路需要极强的自律。成长脉络没有出身限制，日复一日的坚持，会慢慢拉开差距。</p>
+        <p style="margin-top:8px;color:#666;">适合参考：目标省外顶尖三甲、决心考研的广东医学生</p>
+        `
+    },
+    s3: {
+        title:"杜晓慧｜汕头大学医学院｜保研上海交大临床专硕",
+        content:`
+        <div class="mini-flow" style="background:#f4efe4;padding:14px;border-radius:12px;margin-bottom:16px;">脉络链路：科研竞赛积累→大创项目→夏令营→推免上交</div>
+        <p>汕医本科阶段科研训练氛围浓厚，大二主动申报国家级大创项目，组队参加全国大学生生命科学竞赛，拿下一等奖，同时在基础医学创新论坛拿到银奖。持续打磨科研思维，夏令营阶段重点投递上海交大，顺利拿到offer。大四拿到推免资格，正式录取。在校期间同时担任年级级长、学生会部长，平衡学业科研和学生工作。</p>
+        <p style="margin-top:12px;color:#666;">感悟：科研竞赛是很多推免赛道重要的一环，但不要盲目堆项目。找到自己感兴趣的方向深耕，把一条脉络走深，远比浅尝辄止更有竞争力。</p>
+        <p style="margin-top:8px;color:#666;">适合参考：想走科研竞赛、保研省外名校的粤东医学生</p>
+        `
+    },
+    s4: {
+        title:"陈芷晴｜南医｜保研中山三院风湿免疫专硕",
+        content:`
+        <div class="mini-flow" style="background:#f4efe4;padding:14px;border-radius:12px;margin-bottom:16px;">脉络链路：顺德校区夯实基础→科研积累→夏令营→推免→广州三甲专硕</div>
+        <p>我大一在顺德校区，一开始很难平衡繁多的医学课程和社团活动，后来固定了学习节奏。大二主动联系导师加入风湿免疫课题组，慢慢学习病例整理、撰写综述。大三重点准备夏令营，优先投递广州本地医院，不想离开珠三角。大四拿到推免名额，顺利上岸中山三院专硕。</p>
+        <p style="margin-top:12px;color:#666;">感悟：很多广东同学都希望留在珠三角就业，本地院校、本地医院的夏令营和导师资源非常重要。不用盲目冲刺外地名校，适合自己定居规划的方向，才是舒服的成长脉络。</p>
+        <p style="margin-top:8px;color:#666;">适合参考：想留在广州、珠三角发展，计划走推免的南医同学</p>
+        `
+    },
+    s5: {
+        title:"林泽楷｜广医｜考研上岸深圳市人民医院急诊专硕",
+        content:`
+        <div class="mini-flow" style="background:#f4efe4;padding:14px;border-radius:12px;margin-bottom:16px;">脉络链路：急救兴趣萌芽→定向急诊方向→实习备考→上岸深圳三甲</div>
+        <p>我一直对急救、急诊方向很感兴趣，在校加入急救社团练习技能。广医附一的急诊平台很强，大五实习的时候真切感受到急诊的节奏，也坚定了报考深圳医院的想法。深圳医院对广东本地医学生包容度高，同时竞争热度也很高。实习和备考撞在一起，那段时间非常疲惫。</p>
+        <p style="margin-top:12px;color:#666;">感悟：急诊是一条很考验心性的路。广东很多同学目标深圳，深圳的医院待遇不错，但生活压力、工作强度也更大。选方向的时候，既要看到平台，也要想好自己能不能承受这个专科的节奏。成长脉络不是只看“好不好”，而是看自己扛不扛得住。</p>
+        <p style="margin-top:8px;color:#666;">适合参考：意向深圳就业、喜欢急诊急救方向的广东医学生</p>
+        `
+    },
+    s6: {
+        title:"黄晓岚｜暨大｜广州海珠社区全科医生",
+        content:`
+        <div class="mini-flow" style="background:#f4efe4;padding:14px;border-radius:12px;margin-bottom:16px;">脉络链路：志愿实践认识全科→实习对比专科→选择广州社区全科岗位+规培</div>
+        <p>暨大的医学专业有很多面向大湾区基层的项目。我在多次社区义诊里发现，全科医生长期跟进居民慢病、家庭健康管理，和居民联系紧密。大五在三甲轮转之后，我清楚自己不喜欢专科高强度的夜班和手术压力，选择广州社区全科路线。广州对全科医生有专项补贴、落户支持，政策友好。</p>
+        <p style="margin-top:12px;color:#666;">感悟：大湾区基层医疗的需求很大，广州、佛山、东莞都在招全科医生。大家的目光常常只盯着三甲，但是全科是一条稳定、有温度的脉络。医学的价值不只在手术室，也在社区日常的健康守护里。</p>
+        <p style="margin-top:8px;color:#666;">适合参考：希望留在广州、珠三角，追求稳定，不想内卷专科的同学</p>
+        `
+    }
+}
+
+const mask = document.getElementById('mask');
+const modalBody = document.getElementById('modal-body');
+function openModal(id) {
+    const data = storyData[id];
+    modalBody.innerHTML = `<h2>${data.title}</h2>${data.content}<br><button class="close-btn" onclick="closeModal()">关闭</button>`
+    mask.classList.add('show');
+}
+function closeModal() {
+    mask.classList.remove('show');
+}
+mask.onclick = function(e){
+    if(e.target === mask) closeModal();
+}
+</script>
+</body>
+</html>
